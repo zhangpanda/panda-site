@@ -1,0 +1,7 @@
+site.db
+site.db-shm
+site.db-wal
+uploads/
+panda-site
+*.exe
+.DS_Store

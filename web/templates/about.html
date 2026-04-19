@@ -1,0 +1,21 @@
+{{define "title"}}关于 - {{index .Config "title"}}{{end}}
+{{define "desc"}}关于 {{index .Config "author"}}{{end}}
+{{define "content"}}
+<h1 class="text-2xl font-bold mb-6">👤 关于</h1>
+<div class="bg-white rounded-lg border border-gray-200 p-6">
+  <div class="flex items-center gap-4 mb-6">
+    {{if index .Config "avatar"}}<img src="{{index .Config "avatar"}}" class="w-20 h-20 rounded-full" alt="avatar">{{end}}
+    <div>
+      <div class="text-xl font-bold">{{index .Config "author"}}</div>
+      <div class="text-gray-500">{{index .Config "description"}}</div>
+      <div class="flex gap-3 mt-2 text-sm">
+        {{if index .Config "github"}}<a href="{{index .Config "github"}}" target="_blank" class="text-primary hover:underline">GitHub</a>{{end}}
+        {{if index .Config "email"}}<a href="mailto:{{index .Config "email"}}" class="text-primary hover:underline">Email</a>{{end}}
+        {{if index .Config "twitter"}}<a href="{{index .Config "twitter"}}" target="_blank" class="text-primary hover:underline">Twitter</a>{{end}}
+      </div>
+    </div>
+  </div>
+  {{if .AboutHTML}}<div class="prose prose-gray max-w-none">{{html .AboutHTML}}</div>
+  {{else}}<p class="text-gray-400">在管理后台「设置」中编辑关于页内容（支持 Markdown）</p>{{end}}
+</div>
+{{end}}

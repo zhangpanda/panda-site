@@ -1,0 +1,33 @@
+{{define "layout"}}<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{{template "title" .}}</title>
+<meta name="description" content="{{template "desc" .}}">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/rss">
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#42b883'}}}}</script>
+<style>
+.nav-link{color:#6b7280;font-size:14px;transition:color .2s;text-decoration:none}
+.nav-link:hover{color:#42b883;text-decoration:none}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+<header class="border-b border-gray-200 bg-white sticky top-0 z-10">
+  <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
+    <a href="/" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors no-underline">🐼 {{index .Config "title"}}</a>
+    <nav class="flex gap-5">
+      <a href="/" class="nav-link">首页</a>
+      <a href="/projects" class="nav-link">项目</a>
+      <a href="/blog" class="nav-link">博客</a>
+      <a href="/about" class="nav-link">关于</a>
+    </nav>
+  </div>
+</header>
+<main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full">{{template "content" .}}</main>
+<footer class="border-t border-gray-200 text-center py-6 text-xs text-gray-400">
+  Powered by <a href="https://github.com/zhangpanda/panda-site" class="text-primary hover:underline">熊猫小站</a>
+</footer>
+</body>
+</html>{{end}}

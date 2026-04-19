@@ -1,0 +1,25 @@
+{{define "title"}}项目 - {{index .Config "title"}}{{end}}
+{{define "desc"}}{{index .Config "author"}} 的开源项目{{end}}
+{{define "content"}}
+<h1 class="text-2xl font-bold mb-6">💼 项目</h1>
+{{range .Groups}}
+<section class="mb-8">
+  <h2 class="text-lg font-semibold text-gray-600 mb-3">{{.name}}</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {{range .items}}
+    <a href="{{if .Github}}{{.Github}}{{else}}{{.URL}}{{end}}" target="_blank" class="block bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow no-underline group">
+      <div class="flex items-start gap-3">
+        {{if .Icon}}<span class="text-2xl">{{.Icon}}</span>{{end}}
+        <div>
+          <div class="font-semibold text-gray-800 group-hover:text-primary">{{.Name}}</div>
+          <div class="text-sm text-gray-500 mt-1">{{.Description}}</div>
+          {{if .Tags}}<div class="flex flex-wrap gap-1 mt-2">{{range split .Tags ","}}<span class="text-xs bg-green-50 text-primary px-2 py-0.5 rounded-full">{{.}}</span>{{end}}</div>{{end}}
+        </div>
+      </div>
+    </a>
+    {{end}}
+  </div>
+</section>
+{{end}}
+{{if not .Groups}}<p class="text-center text-gray-400 py-12">暂无项目</p>{{end}}
+{{end}}
