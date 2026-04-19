@@ -326,7 +326,7 @@ func (h *Handler) Upload(w http.ResponseWriter, r *http.Request) {
 // === 工具函数 ===
 
 var md = goldmark.New(
-	goldmark.WithExtensions(extension.GFM, highlighting.NewHighlighting(highlighting.WithStyle("github"))),
+	goldmark.WithExtensions(extension.GFM, highlighting.NewHighlighting(highlighting.WithStyle("monokai"))),
 	goldmark.WithRendererOptions(goldhtml.WithUnsafe()),
 )
 
