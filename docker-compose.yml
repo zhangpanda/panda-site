@@ -1,0 +1,15 @@
+services:
+  panda-site:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - site-data:/app/data
+      - site-uploads:/app/uploads
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-}
+    restart: unless-stopped
+
+volumes:
+  site-data:
+  site-uploads:
