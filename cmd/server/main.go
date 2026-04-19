@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	addr := flag.String("addr", ":8080", "listen address")
+	addr := flag.String("addr", ":8090", "listen address")
 	dbPath := flag.String("db", "site.db", "sqlite database path")
 	flag.Parse()
 
