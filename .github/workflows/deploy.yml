@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - name: Build
+        run: CGO_ENABLED=1 go build -o panda-site ./cmd/server
+
+      - name: Deploy
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          source: "panda-site,web/"
+          target: /opt/zhangpanda.com
+          overwrite: true
+
+      - name: Restart
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: systemctl restart panda-site
