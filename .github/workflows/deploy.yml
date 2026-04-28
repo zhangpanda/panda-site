@@ -17,6 +17,15 @@ jobs:
       - name: Build
         run: CGO_ENABLED=1 go build -o panda-site ./cmd/server
 
+      - name: Stop service
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          script: systemctl stop panda-site
+
       - name: Deploy
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -28,11 +37,11 @@ jobs:
           target: /opt/zhangpanda.com
           overwrite: true
 
-      - name: Restart
+      - name: Start service
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: root
           key: ${{ secrets.SSH_KEY }}
-          script: systemctl restart panda-site
+          script: chmod +x /opt/zhangpanda.com/panda-site && systemctl start panda-site
