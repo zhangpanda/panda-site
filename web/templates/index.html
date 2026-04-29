@@ -4,7 +4,8 @@
 <section class="text-center py-12">
   {{if index .Config "avatar"}}<img src="{{index .Config "avatar"}}" class="w-24 h-24 rounded-full mx-auto mb-4" alt="avatar">{{end}}
   <h1 class="text-3xl font-bold mb-2">{{index .Config "title"}}</h1>
-  <p class="text-gray-500 text-lg mb-4">{{index .Config "subtitle"}}</p>
+  <p class="text-gray-500 text-lg mb-2">{{index .Config "subtitle"}}</p>
+  {{if index .Config "tagline"}}<p class="text-gray-400 text-sm mb-4">{{index .Config "tagline"}}</p>{{end}}
   <div class="flex justify-center gap-4 text-sm">
     {{if index .Config "github"}}<a href="{{index .Config "github"}}" target="_blank" class="text-gray-500 hover:text-primary">GitHub</a>{{end}}
     {{if index .Config "email"}}<a href="mailto:{{index .Config "email"}}" class="text-gray-500 hover:text-primary">Email</a>{{end}}
