@@ -24,19 +24,21 @@ pre code span{background:none!important}
     <a href="/" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors no-underline">🐼 {{index .Config "title"}}</a>
     <nav class="flex gap-5">
       <a href="/" class="nav-link">首页</a>
-      <a href="/projects" class="nav-link">项目</a>
-      <a href="/blog" class="nav-link">博客</a>
-      <a href="/about" class="nav-link">关于</a>
+      <a href="/projects" class="nav-link">法宝阁</a>
+      <a href="/blog" class="nav-link">洞府札记</a>
+      <a href="/about" class="nav-link">道友信息</a>
     </nav>
   </div>
 </header>
 <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full">{{template "content" .}}</main>
 <footer class="border-t border-gray-200 text-center py-6 text-xs text-gray-400">
-  Powered by <a href="https://github.com/zhangpanda/panda-site" class="text-primary hover:underline">熊猫小站</a>
-  <span class="mx-1">|</span>
-  <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="hover:underline">京ICP备2026019723号-2</a>
-  <span class="mx-1">|</span>
-  <a href="https://beian.mps.gov.cn/#/query/webSearch?code=11011302007936" target="_blank" rel="noopener" class="hover:underline">京公网安备11011302007936号</a>
+  <p class="mb-2 text-gray-300 tracking-wider">以算力为灵气，以数据为丹砂；以模型悟大道，以智能证长生。</p>
+  <p class="mb-2">天机道院出品 · Powered by <a href="https://github.com/zhangpanda/panda-site" class="text-primary hover:underline">熊猫小站</a></p>
+  <p>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="hover:underline">京ICP备2026019723号-2</a>
+    <span class="mx-1">|</span>
+    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=11011302007936" target="_blank" rel="noopener" class="hover:underline">京公网安备11011302007936号</a>
+  </p>
 </footer>
 </body>
 </html>{{end}}

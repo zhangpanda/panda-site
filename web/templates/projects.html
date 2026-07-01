@@ -1,7 +1,7 @@
-{{define "title"}}项目 - {{index .Config "title"}}{{end}}
-{{define "desc"}}{{index .Config "author"}} 的开源项目{{end}}
+{{define "title"}}法宝阁 - {{index .Config "title"}}{{end}}
+{{define "desc"}}{{index .Config "author"}} 的法宝阁{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-6">💼 项目</h1>
+<h1 class="text-2xl font-bold mb-6">🗡️ 法宝阁</h1>
 {{range .Groups}}
 <section class="mb-8">
   <h2 class="text-lg font-semibold text-gray-600 mb-3">{{.name}}</h2>
@@ -25,5 +25,5 @@
   </div>
 </section>
 {{end}}
-{{if not .Groups}}<p class="text-center text-gray-400 py-12">暂无项目</p>{{end}}
+{{if not .Groups}}<p class="text-center text-gray-400 py-12">法宝阁空空如也</p>{{end}}
 {{end}}

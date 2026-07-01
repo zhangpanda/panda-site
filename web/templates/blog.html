@@ -1,7 +1,7 @@
-{{define "title"}}博客 - {{index .Config "title"}}{{end}}
-{{define "desc"}}{{index .Config "author"}} 的技术博客{{end}}
+{{define "title"}}洞府札记 - {{index .Config "title"}}{{end}}
+{{define "desc"}}{{index .Config "author"}} 的洞府札记{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-4">📝 博客</h1>
+<h1 class="text-2xl font-bold mb-4">📝 洞府札记</h1>
 <div class="flex flex-wrap gap-2 mb-6">
   <a href="/blog" class="px-3 py-1 rounded-full text-sm border {{if eq .Category ""}}bg-primary text-white border-primary{{else}}bg-white text-gray-500 border-gray-200 hover:border-primary{{end}}">全部 ({{.Total}})</a>
   {{range .Categories}}<a href="/blog?category={{.Slug}}" class="px-3 py-1 rounded-full text-sm border {{if eq $.Category .Slug}}bg-primary text-white border-primary{{else}}bg-white text-gray-500 border-gray-200 hover:border-primary{{end}}">{{.Name}} ({{.Count}})</a>{{end}}

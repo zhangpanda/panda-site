@@ -1,7 +1,7 @@
-{{define "title"}}关于 - {{index .Config "title"}}{{end}}
-{{define "desc"}}关于 {{index .Config "author"}}{{end}}
+{{define "title"}}道友信息 - {{index .Config "title"}}{{end}}
+{{define "desc"}}{{index .Config "author"}} 的道友信息{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-6">👤 关于</h1>
+<h1 class="text-2xl font-bold mb-6">🧿 道友信息</h1>
 <div class="bg-white rounded-lg border border-gray-200 p-6">
   <div class="flex items-center gap-4 mb-6">
     {{if index .Config "avatar"}}<img src="{{index .Config "avatar"}}" class="w-20 h-20 rounded-full" alt="avatar">{{end}}
@@ -16,6 +16,6 @@
     </div>
   </div>
   {{if .AboutHTML}}<div class="prose prose-gray max-w-none">{{html .AboutHTML}}</div>
-  {{else}}<p class="text-gray-400">在管理后台「设置」中编辑关于页内容（支持 Markdown）</p>{{end}}
+  {{else}}<p class="text-gray-400">在管理后台「设置」中编辑道友信息（支持 Markdown）</p>{{end}}
 </div>
 {{end}}

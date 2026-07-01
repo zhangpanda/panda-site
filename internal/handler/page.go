@@ -27,7 +27,7 @@ var funcMap = template.FuncMap{
 
 func (h *Handler) PageIndex(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
+		h.render404(w, r)
 		return
 	}
 	articles, _ := h.Article.List(1, 5, "published", "")
@@ -88,7 +88,7 @@ func (h *Handler) PageArticle(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
 	a, err := h.Article.GetBySlug(slug)
 	if err != nil || a.Status != "published" {
-		http.NotFound(w, r)
+		h.render404(w, r)
 		return
 	}
 	h.Article.IncrViews(a.ID)
@@ -120,7 +120,7 @@ func (h *Handler) RSS(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/xml; charset=utf-8")
 	fmt.Fprintf(w, `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>%s</title><description>%s</description><link>%s</link>`,
+<title>%s · 洞府札记</title><description>%s</description><link>%s</link>`,
 		template.HTMLEscapeString(cfg["title"]),
 		template.HTMLEscapeString(cfg["description"]),
 		template.HTMLEscapeString(cfg["url"]))
@@ -149,4 +149,11 @@ func (h *Handler) render(w http.ResponseWriter, name string, data any) {
 	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 		http.Error(w, err.Error(), 500)
 	}
+}
+
+func (h *Handler) render404(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(404)
+	h.render(w, "404", map[string]any{
+		"Config": h.Config.GetAll(),
+	})
 }
