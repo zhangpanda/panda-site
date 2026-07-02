@@ -1,22 +1,22 @@
 {{define "title"}}法宝阁 - {{index .Config "title"}}{{end}}
 {{define "desc"}}{{index .Config "author"}} 的法宝阁{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-6">🗡️ 法宝阁</h1>
+<h1 class="text-2xl font-bold mb-6 text-white font-kai glow-text">🗡️ 法宝阁</h1>
 {{range .Groups}}
 <section class="mb-8">
-  <h2 class="text-lg font-semibold text-gray-600 mb-3">{{.name}}</h2>
+  <h2 class="text-lg font-semibold text-gold/80 mb-3 font-kai">{{.name}}</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     {{range .items}}
-    <div class="bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow">
+    <div class="card p-5">
       <div class="flex items-start gap-3">
         {{if .Icon}}<span class="text-2xl">{{.Icon}}</span>{{end}}
         <div>
-          <div class="font-semibold text-gray-800">{{.Name}}</div>
-          <div class="text-sm text-gray-500 mt-1">{{.Description}}</div>
-          {{if .Tags}}<div class="flex flex-wrap gap-1 mt-2">{{range split .Tags ","}}<span class="text-xs bg-green-50 text-primary px-2 py-0.5 rounded-full">{{.}}</span>{{end}}</div>{{end}}
+          <div class="font-semibold text-white">{{.Name}}</div>
+          <div class="text-sm text-gray-400 mt-1">{{.Description}}</div>
+          {{if .Tags}}<div class="flex flex-wrap gap-1 mt-2">{{range split .Tags ","}}<span class="tag">{{.}}</span>{{end}}</div>{{end}}
           <div class="flex gap-3 mt-2 text-sm">
-            {{if .URL}}<a href="{{.URL}}" target="_blank" class="text-primary hover:underline">🔗 演示</a>{{end}}
-            {{if .Github}}<a href="{{.Github}}" target="_blank" class="text-gray-500 hover:text-primary hover:underline">GitHub</a>{{end}}
+            {{if .URL}}<a href="{{.URL}}" target="_blank">🔗 演示</a>{{end}}
+            {{if .Github}}<a href="{{.Github}}" target="_blank" class="text-gray-400 hover:text-primary">GitHub</a>{{end}}
           </div>
         </div>
       </div>
@@ -25,5 +25,5 @@
   </div>
 </section>
 {{end}}
-{{if not .Groups}}<p class="text-center text-gray-400 py-12">法宝阁空空如也</p>{{end}}
+{{if not .Groups}}<p class="text-center text-gray-500 py-12">法宝阁空空如也</p>{{end}}
 {{end}}

@@ -1,25 +1,32 @@
 {{define "title"}}洞府札记 - {{index .Config "title"}}{{end}}
 {{define "desc"}}{{index .Config "author"}} 的洞府札记{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-4">📝 洞府札记</h1>
+<h1 class="text-2xl font-bold mb-4 text-white font-kai glow-text">📝 洞府札记</h1>
+
+{{if .Categories}}
 <div class="flex flex-wrap gap-2 mb-6">
-  <a href="/blog" class="px-3 py-1 rounded-full text-sm border {{if eq .Category ""}}bg-primary text-white border-primary{{else}}bg-white text-gray-500 border-gray-200 hover:border-primary{{end}}">全部 ({{.Total}})</a>
-  {{range .Categories}}<a href="/blog?category={{.Slug}}" class="px-3 py-1 rounded-full text-sm border {{if eq $.Category .Slug}}bg-primary text-white border-primary{{else}}bg-white text-gray-500 border-gray-200 hover:border-primary{{end}}">{{.Name}} ({{.Count}})</a>{{end}}
+  <a href="/blog" class="tag {{if not .Category}}!bg-primary/20 !text-primary{{end}}">全部</a>
+  {{range .Categories}}
+  <a href="/blog?category={{.Slug}}" class="tag {{if eq $.Category .Slug}}!bg-primary/20 !text-primary{{end}}">{{.Name}}</a>
+  {{end}}
 </div>
-{{if not .Articles}}<p class="text-center text-gray-400 py-12">暂无文章</p>{{end}}
+{{end}}
+
 {{range .Articles}}
-<a href="/blog/{{.Slug}}" class="block bg-white rounded-lg border border-gray-200 p-5 mb-3 hover:shadow-md transition-shadow no-underline">
-  <div class="font-semibold text-gray-800">{{.Title}}</div>
-  <div class="text-sm text-gray-400 mt-1">{{fmtDate .PublishedAt}} · {{.Category}} · 👁 {{.Views}}</div>
-  {{if .Summary}}<div class="text-sm text-gray-500 mt-2 line-clamp-2">{{.Summary}}</div>{{end}}
-  {{if .Tags}}<div class="flex flex-wrap gap-1 mt-2">{{range split .Tags ","}}<span class="text-xs bg-green-50 text-primary px-2 py-0.5 rounded-full">{{.}}</span>{{end}}</div>{{end}}
+<a href="/blog/{{.Slug}}" class="block card p-5 mb-3 no-underline group">
+  <div class="font-semibold text-white group-hover:text-primary transition-colors">{{.Title}}</div>
+  <div class="text-sm text-gray-500 mt-1">{{fmtDate .PublishedAt}} · {{.Category}} · 🧿 {{.Views}}</div>
+  {{if .Summary}}<div class="text-sm text-gray-400 mt-2 line-clamp-2">{{.Summary}}</div>{{end}}
 </a>
 {{end}}
+
+{{if not .Articles}}<p class="text-center text-gray-500 py-12">尚无札记</p>{{end}}
+
 {{if gt .TotalPages 1}}
-<div class="flex justify-center gap-4 py-6 text-sm">
-  {{if gt .Page 1}}<a href="/blog?page={{sub .Page 1}}&category={{.Category}}" class="text-primary hover:underline">← 上一页</a>{{end}}
-  <span class="text-gray-400">{{.Page}} / {{.TotalPages}}</span>
-  {{if lt .Page .TotalPages}}<a href="/blog?page={{add .Page 1}}&category={{.Category}}" class="text-primary hover:underline">下一页 →</a>{{end}}
+<div class="flex justify-center gap-2 mt-8">
+  {{if gt .Page 1}}<a href="/blog?page={{sub .Page 1}}{{if .Category}}&category={{.Category}}{{end}}" class="card px-3 py-1 text-sm">← 上一页</a>{{end}}
+  <span class="text-sm text-gray-500 px-3 py-1">{{.Page}} / {{.TotalPages}}</span>
+  {{if lt .Page .TotalPages}}<a href="/blog?page={{add .Page 1}}{{if .Category}}&category={{.Category}}{{end}}" class="card px-3 py-1 text-sm">下一页 →</a>{{end}}
 </div>
 {{end}}
 {{end}}

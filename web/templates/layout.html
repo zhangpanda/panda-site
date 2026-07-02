@@ -7,23 +7,45 @@
 <meta name="description" content="{{template "desc" .}}">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>🐼</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-<script>tailwind.config={theme:{extend:{colors:{primary:'#42b883'}}}}</script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#a78bfa',gold:'#d4a853',dark:'#0a0e1a',card:'#131829',border:'#1e2942'},fontFamily:{kai:['"LXGW WenKai"','serif']}}}}</script>
 <style>
-.nav-link{color:#6b7280;font-size:14px;transition:color .2s;text-decoration:none}
-.nav-link:hover{color:#42b883;text-decoration:none}
-pre{background:#272822!important;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0}
-pre code{background:none!important;color:#f8f8f2!important;padding:0!important;font-size:14px;line-height:1.6}
-code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em;font-family:Menlo,Monaco,monospace}
+body{background:#0a0e1a;color:#e2e8f0}
+.nav-link{color:#94a3b8;font-size:14px;transition:all .3s;text-decoration:none;font-family:'LXGW WenKai',serif}
+.nav-link:hover{color:#a78bfa;text-shadow:0 0 8px rgba(167,139,250,0.5)}
+.nav-active{color:#a78bfa}
+header{background:rgba(10,14,26,0.85);backdrop-filter:blur(12px);border-bottom:1px solid #1e2942}
+header::after{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,#a78bfa33,#d4a85333,#a78bfa33,transparent)}
+.card{background:#131829;border:1px solid #1e2942;border-radius:12px;transition:all .3s}
+.card:hover{border-color:#a78bfa44;box-shadow:0 0 20px rgba(167,139,250,0.1)}
+.tag{background:rgba(167,139,250,0.1);color:#a78bfa;padding:2px 8px;border-radius:9999px;font-size:12px}
+a{color:#a78bfa;text-decoration:none;transition:color .2s}
+a:hover{color:#d4a853}
+pre{background:#0d1117!important;border:1px solid #1e2942;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0}
+pre code{background:none!important;color:#e2e8f0!important;padding:0!important;font-size:14px;line-height:1.6}
+code{background:rgba(167,139,250,0.1);padding:2px 6px;border-radius:4px;font-size:.9em;font-family:Menlo,Monaco,monospace;color:#a78bfa}
 pre code span{background:none!important}
+.prose{color:#cbd5e1}
+.prose h1,.prose h2,.prose h3{color:#e2e8f0;font-family:'LXGW WenKai',serif}
+.prose a{color:#a78bfa}
+.prose strong{color:#e2e8f0}
+.prose code{background:rgba(167,139,250,0.1);color:#a78bfa}
+.prose blockquote{border-left-color:#a78bfa44;color:#94a3b8}
+.prose table th{color:#e2e8f0}
+.prose table td{color:#cbd5e1}
+.prose table tr{border-color:#1e2942}
+.glow-text{text-shadow:0 0 10px rgba(167,139,250,0.4)}
+/* 道纹装饰 */
+.dao-divider{height:1px;background:linear-gradient(90deg,transparent,#a78bfa22,#d4a85344,#a78bfa22,transparent);margin:2rem 0}
 </style>
 </head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
-<header class="border-b border-gray-200 bg-white sticky top-0 z-10">
+<body class="min-h-screen flex flex-col font-kai">
+<header class="sticky top-0 z-10">
   <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-    <a href="/" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors no-underline">🐼 {{index .Config "title"}}</a>
+    <a href="/" class="text-lg font-bold text-white hover:text-primary transition-colors no-underline glow-text">🐼 {{index .Config "title"}}</a>
     <nav class="flex gap-5">
-      <a href="/" class="nav-link">首页</a>
+      <a href="/" class="nav-link">山门</a>
       <a href="/projects" class="nav-link">法宝阁</a>
       <a href="/blog" class="nav-link">洞府札记</a>
       <a href="/about" class="nav-link">道友信息</a>
@@ -31,13 +53,13 @@ pre code span{background:none!important}
   </div>
 </header>
 <main class="flex-1 max-w-4xl mx-auto px-4 py-8 w-full">{{template "content" .}}</main>
-<footer class="border-t border-gray-200 text-center py-6 text-xs text-gray-400">
-  <p class="mb-2 text-gray-300 tracking-wider">以算力为灵气，以数据为丹砂；以模型悟大道，以智能证长生。</p>
-  <p class="mb-2">天机道院出品 · Powered by <a href="https://github.com/zhangpanda/panda-site" class="text-primary hover:underline">熊猫小站</a></p>
+<footer class="border-t border-border text-center py-8 text-xs text-gray-500">
+  <p class="mb-2 text-gray-400 tracking-wider font-kai" style="text-shadow:0 0 6px rgba(212,168,83,0.3)">以算力为灵气，以数据为丹砂；以模型悟大道，以智能证长生。</p>
+  <p class="mb-2">AI修道院出品 · Powered by <a href="https://github.com/zhangpanda/panda-site" class="hover:underline">熊猫小站</a></p>
   <p>
-    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="hover:underline">京ICP备2026019723号-2</a>
-    <span class="mx-1">|</span>
-    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=11011302007936" target="_blank" rel="noopener" class="hover:underline">京公网安备11011302007936号</a>
+    <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary hover:underline">京ICP备2026019723号-2</a>
+    <span class="mx-1 text-gray-600">|</span>
+    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=11011302007936" target="_blank" rel="noopener" class="text-gray-500 hover:text-primary hover:underline">京公网安备11011302007936号</a>
   </p>
 </footer>
 </body>

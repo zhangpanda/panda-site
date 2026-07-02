@@ -1,21 +1,22 @@
 {{define "title"}}道友信息 - {{index .Config "title"}}{{end}}
 {{define "desc"}}{{index .Config "author"}} 的道友信息{{end}}
 {{define "content"}}
-<h1 class="text-2xl font-bold mb-6">🧿 道友信息</h1>
-<div class="bg-white rounded-lg border border-gray-200 p-6">
+<h1 class="text-2xl font-bold mb-6 text-white font-kai glow-text">🧿 道友信息</h1>
+<div class="card p-6">
   <div class="flex items-center gap-4 mb-6">
-    {{if index .Config "avatar"}}<img src="{{index .Config "avatar"}}" class="w-20 h-20 rounded-full" alt="avatar">{{end}}
+    {{if index .Config "avatar"}}<img src="{{index .Config "avatar"}}" class="w-20 h-20 rounded-full border-2 border-primary/30" alt="avatar">{{end}}
     <div>
-      <div class="text-xl font-bold">{{index .Config "author"}}</div>
-      <div class="text-gray-500">{{index .Config "description"}}</div>
-      <div class="flex gap-3 mt-2 text-sm">
-        {{if index .Config "github"}}<a href="{{index .Config "github"}}" target="_blank" class="text-primary hover:underline">GitHub</a>{{end}}
-        {{if index .Config "email"}}<a href="mailto:{{index .Config "email"}}" class="text-primary hover:underline">Email</a>{{end}}
-        {{if index .Config "twitter"}}<a href="{{index .Config "twitter"}}" target="_blank" class="text-primary hover:underline">Twitter</a>{{end}}
+      <div class="text-xl font-bold text-white font-kai">{{index .Config "author"}}</div>
+      <div class="text-gray-400 mt-2">{{index .Config "description"}}</div>
+      <div class="flex gap-3 mt-3 text-sm">
+        {{if index .Config "github"}}<a href="{{index .Config "github"}}" target="_blank">GitHub</a>{{end}}
+        {{if index .Config "email"}}<a href="mailto:{{index .Config "email"}}">Email</a>{{end}}
+        {{if index .Config "twitter"}}<a href="{{index .Config "twitter"}}" target="_blank">Twitter</a>{{end}}
       </div>
     </div>
   </div>
-  {{if .AboutHTML}}<div class="prose prose-gray max-w-none">{{html .AboutHTML}}</div>
-  {{else}}<p class="text-gray-400">在管理后台「设置」中编辑道友信息（支持 Markdown）</p>{{end}}
+  <div class="dao-divider"></div>
+  {{if .AboutHTML}}<div class="prose prose-invert max-w-none">{{html .AboutHTML}}</div>
+  {{else}}<p class="text-gray-500">在管理后台「设置」中编辑道友信息（支持 Markdown）</p>{{end}}
 </div>
 {{end}}

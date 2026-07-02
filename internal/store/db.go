@@ -79,25 +79,23 @@ func seed(db *sql.DB) {
 
 	defaults := map[string]string{
 		"title":       "ZhangPanda",
-		"subtitle":    "天机道院 · 赛博修仙者",
+		"subtitle":    "AI修道院 · 赛博修仙者",
 		"tagline":     "以最少的灵材，炼最完整的法宝",
-		"description": "道号元算子，化神期修士，主修《大衍推演诀》",
-		"author":      "元算子",
+		"description": "化神期修士 · 主修《AI 驭算诀》",
+		"author":      "熊猫道君",
 		"github":      "https://github.com/zhangpanda",
 		"email":       "hi@zhangpanda.com",
 		"about_markdown": `## ⚔️ 修仙简历
 
-**道号：** 元算子
+**道号：** 熊猫道君
 
-**尊号：** 演天道君
-
-**宗门：** 天机道院
+**宗门：** AI修道院
 
 **境界：** 化神期（LLM / Agent）
 
-**道龄：** 十二载
+**道龄：** 十五载
 
-**主修功法：** 《大衍推演诀》
+**主修功法：** 《AI 驭算诀》
 
 **道统铭：** 以算力为灵气，以数据为丹砂；以模型悟大道，以智能证长生。
 

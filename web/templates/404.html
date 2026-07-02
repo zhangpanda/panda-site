@@ -1,11 +1,50 @@
 {{define "title"}}迷途 - {{index .Config "title"}}{{end}}
 {{define "desc"}}此处灵气断绝{{end}}
 {{define "content"}}
-<div class="text-center py-20">
-  <div class="text-6xl mb-6">🌫️</div>
-  <h1 class="text-3xl font-bold mb-3 text-gray-700">此处灵气断绝</h1>
-  <p class="text-gray-400 mb-2">道友迷路了，此地已是禁区之外。</p>
-  <p class="text-gray-300 text-sm mb-8">——「404 · 虚空迷途」</p>
-  <a href="/" class="inline-block bg-primary text-white px-6 py-2 rounded-lg text-sm hover:opacity-90 no-underline">返回洞府</a>
+<div class="text-center py-20 relative">
+  <canvas id="void-particles" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+  <div class="relative z-10">
+    <div class="text-6xl mb-6">🌫️</div>
+    <h1 class="text-3xl font-bold mb-3 text-white font-kai glow-text">此处灵气断绝</h1>
+    <p class="text-gray-400 mb-2">道友迷路了，此地已是禁区之外。</p>
+    <p class="text-gray-600 text-sm mb-8">——「404 · 虚空迷途」</p>
+    <a href="/" class="inline-block bg-primary/20 text-primary border border-primary/30 px-6 py-2 rounded-lg text-sm hover:bg-primary/30 transition-colors no-underline">返回山门</a>
+  </div>
 </div>
+<script>
+(function(){
+  const canvas = document.getElementById('void-particles');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+  function resize(){ w = canvas.width = canvas.offsetWidth; h = canvas.height = canvas.offsetHeight; }
+  function init(){
+    resize(); particles = [];
+    for(let i=0;i<40;i++){
+      particles.push({
+        x: Math.random()*w, y: Math.random()*h,
+        r: Math.random()*2+1,
+        dy: -(Math.random()*0.5+0.2),
+        alpha: Math.random()*0.6+0.2,
+        fade: Math.random()*0.005+0.002
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    particles.forEach(p=>{
+      p.y += p.dy;
+      p.alpha -= p.fade;
+      if(p.alpha<=0 || p.y<0){ p.y=h; p.x=Math.random()*w; p.alpha=Math.random()*0.6+0.2; }
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle=`rgba(167,139,250,${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  init(); draw();
+  window.addEventListener('resize', init);
+})();
+</script>
 {{end}}

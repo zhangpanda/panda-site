@@ -2,17 +2,18 @@
 {{define "desc"}}{{.Article.Summary}}{{end}}
 {{define "content"}}
 <article>
-  <h1 class="text-3xl font-bold mb-2">{{.Article.Title}}</h1>
-  <div class="text-sm text-gray-400 mb-6">
+  <h1 class="text-3xl font-bold mb-2 text-white font-kai">{{.Article.Title}}</h1>
+  <div class="text-sm text-gray-500 mb-6">
     {{fmtDate .Article.PublishedAt}} 落笔 · {{.Article.Category}} · 🧿 {{.Article.Views}} 人观道
-    {{if .Article.Tags}}{{range split .Article.Tags ","}} · <span class="text-xs bg-green-50 text-primary px-2 py-0.5 rounded-full">{{.}}</span>{{end}}{{end}}
+    {{if .Article.Tags}}{{range split .Article.Tags ","}} · <span class="tag">{{.}}</span>{{end}}{{end}}
   </div>
-  {{if .Article.Cover}}<img src="{{.Article.Cover}}" class="w-full rounded-lg mb-6" alt="cover">{{end}}
-  <div class="prose prose-gray max-w-none">{{html .Article.HTML}}</div>
+  {{if .Article.Cover}}<img src="{{.Article.Cover}}" class="w-full rounded-lg mb-6 border border-border" alt="cover">{{end}}
+  <div class="prose prose-invert max-w-none">{{html .Article.HTML}}</div>
 </article>
-<div class="flex justify-between items-center mt-10 pt-6 border-t border-gray-200 text-sm">
-  <div>{{if .Prev}}<a href="/blog/{{.Prev.Slug}}" class="text-primary hover:underline">← {{.Prev.Title}}</a>{{end}}</div>
-  <div>{{if .Next}}<a href="/blog/{{.Next.Slug}}" class="text-primary hover:underline">{{.Next.Title}} →</a>{{end}}</div>
+<div class="dao-divider"></div>
+<div class="flex justify-between items-center text-sm">
+  <div>{{if .Prev}}<a href="/blog/{{.Prev.Slug}}">← {{.Prev.Title}}</a>{{end}}</div>
+  <div>{{if .Next}}<a href="/blog/{{.Next.Slug}}">{{.Next.Title}} →</a>{{end}}</div>
 </div>
-<div class="mt-4"><a href="/blog" class="text-sm text-gray-400 hover:text-primary">← 返回洞府札记</a></div>
+<div class="mt-4"><a href="/blog" class="text-sm text-gray-500 hover:text-primary">← 返回洞府札记</a></div>
 {{end}}
