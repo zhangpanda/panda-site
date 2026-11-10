@@ -79,9 +79,9 @@ func seed(db *sql.DB) {
 
 	defaults := map[string]string{
 		"title":       "ZhangPanda",
-		"subtitle":    "AI修道院 · 赛博修仙者",
+		"subtitle":    "AI修道院 · 科技修仙者",
 		"tagline":     "以最少的灵材，炼最完整的法宝",
-		"description": "化神期修士 · 主修《AI 驭算诀》",
+		"description": "道号熊猫道君，渡劫期修士，主修《AI 驭算诀》",
 		"author":      "熊猫道君",
 		"github":      "https://github.com/zhangpanda",
 		"email":       "hi@zhangpanda.com",
@@ -91,7 +91,7 @@ func seed(db *sql.DB) {
 
 **宗门：** AI修道院
 
-**境界：** 化神期（LLM / Agent）
+**境界：** 渡劫期（MCP / 开源）
 
 **道龄：** 十五载
 
@@ -105,11 +105,16 @@ func seed(db *sql.DB) {
 
 | 境界 | 对应 | 成就 |
 |------|------|------|
-| 炼气 | Hello World | 踏入修仙之门 |
-| 筑基 | CRUD | 初窥数据之道 |
-| 金丹 | PHP 后端 | 凝练第一枚金丹 |
-| 元婴 | 微服务 | 一念化万法 |
-| 化神 | LLM / Agent | 当前境界 |
+| 炼气 | Hello World / HTML | 踏入修仙之门 |
+| 筑基 | PHP + MySQL CRUD | 初窥数据之道 |
+| 金丹 | Laravel / ThinkPHP 全栈 | 凝练第一枚金丹 |
+| 元婴 | Go 重构 + 微服务 | 元婴出窍，一念化万法 |
+| 化神 | Elasticsearch + Kafka + 数据引擎 | 执掌数据洪流 |
+| 炼虚 | Docker / K8S / CI/CD | 万象阵法，虚实一体 |
+| 合体 | NLP 服务集群 + 舆情系统 | 人机合一 |
+| 大乘 | LLM 应用 + Agent 开发 | 大道初成 |
+| 渡劫 | MCP 框架 / 开源项目上线 | 天劫已渡 |
+| 飞升 | AGI | 未至 ∞ |
 
 ---
 
