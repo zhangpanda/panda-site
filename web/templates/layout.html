@@ -12,6 +12,8 @@
 <script>tailwind.config={theme:{extend:{colors:{primary:'#a78bfa',gold:'#d4a853',dark:'#0a0e1a',card:'rgba(19,24,41,0.8)',border:'#1e2942'},fontFamily:{kai:['"LXGW WenKai"','serif']}}}}</script>
 <style>
 body{background:#0a0e1a;color:#e2e8f0;overflow-x:hidden}
+.scrollbar-hidden{scrollbar-width:none;-ms-overflow-style:none}
+.scrollbar-hidden::-webkit-scrollbar{display:none}
 /* 全局灵气背景 */
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(167,139,250,0.08) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(212,168,83,0.05) 0%,transparent 40%);pointer-events:none;z-index:0}
 .nav-link{color:#94a3b8;font-size:14px;transition:all .3s;text-decoration:none;font-family:'LXGW WenKai',serif;position:relative}
@@ -67,7 +69,7 @@ pre code span{background:none!important}
       <span class="spin-slow inline-block" style="font-size:20px">☯</span>
       {{index .Config "title"}}
     </a>
-    <nav class="flex gap-3 sm:gap-5 overflow-x-auto whitespace-nowrap ml-4 min-w-0" id="main-nav">
+    <nav class="flex gap-3 sm:gap-5 overflow-x-auto scrollbar-hidden whitespace-nowrap ml-4 min-w-0" id="main-nav">
       <a href="/" class="nav-link">山门</a>
       <a href="/projects" class="nav-link">法宝阁</a>
       <a href="/blog" class="nav-link">洞府札记</a>

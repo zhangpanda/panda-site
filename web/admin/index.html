@@ -13,6 +13,8 @@ body{background:#0a0e1a;font-family:'LXGW WenKai',serif}
 .tab{padding:0 16px;font-size:14px;cursor:pointer;color:#94a3b8;border-bottom:2px solid transparent;line-height:48px;transition:color .2s}
 .tab:hover{color:#a78bfa}
 .tab.active{color:#a78bfa;border-bottom-color:#a78bfa;font-weight:500}
+.scrollbar-hidden{scrollbar-width:none;-ms-overflow-style:none}
+.scrollbar-hidden::-webkit-scrollbar{display:none}
 </style>
 </head>
 <body class="text-gray-200">
@@ -27,7 +29,7 @@ body{background:#0a0e1a;font-family:'LXGW WenKai',serif}
 <div id="app" style="display:none">
   <div class="bg-card border-b border-border"><div class="max-w-5xl mx-auto px-4 flex items-center justify-between h-12 gap-4">
     <span class="font-bold text-sm text-white shrink-0">🧿 AI修道院</span>
-    <div class="flex overflow-x-auto whitespace-nowrap">
+    <div class="flex overflow-x-auto scrollbar-hidden whitespace-nowrap">
       <div class="tab active" data-sec="articles" onclick="showSec('articles')">文章</div>
       <div class="tab" data-sec="projects" onclick="showSec('projects')">项目</div>
       <div class="tab" data-sec="links" onclick="showSec('links')">友链</div>
