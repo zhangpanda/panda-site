@@ -497,16 +497,38 @@ func (h *Handler) Upload(w http.ResponseWriter, r *http.Request) {
 		jsonErr(w, 400, "只支持 jpg/png/gif/webp 格式")
 		return
 	}
-	os.MkdirAll("uploads", 0755)
+	if err := os.MkdirAll("uploads", 0755); err != nil {
+		jsonErr(w, 500, "创建上传目录失败")
+		return
+	}
 	name := fmt.Sprintf("%d%s", time.Now().UnixMilli(), ext)
 	dst, err := os.Create(filepath.Join("uploads", name))
 	if err != nil {
 		jsonErr(w, 500, "保存失败")
 		return
 	}
-	defer dst.Close()
-	io.Copy(dst, file)
-	jsonOK(w, 200, map[string]string{"url": "/uploads/" + name})
+	if _, err := io.Copy(dst, file); err != nil {
+		dst.Close()
+		os.Remove(dst.Name())
+		jsonErr(w, 500, "保存失败")
+		return
+	}
+	if err := dst.Close(); err != nil {
+		os.Remove(dst.Name())
+		jsonErr(w, 500, "保存失败")
+		return
+	}
+	jsonOK(w, 200, map[string]string{"url": "/api/uploads/" + name})
+}
+
+func (h *Handler) ServeUpload(w http.ResponseWriter, r *http.Request) {
+	name := r.PathValue("name")
+	if name == "" || filepath.Base(name) != name {
+		http.NotFound(w, r)
+		return
+	}
+	w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
+	http.ServeFile(w, r, filepath.Join("uploads", name))
 }
 
 // === 工具函数 ===

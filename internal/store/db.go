@@ -14,7 +14,25 @@ func InitDB(path string) (*sql.DB, error) {
 		return nil, err
 	}
 	seed(db)
+	if err := migrateUploadURLs(db); err != nil {
+		db.Close()
+		return nil, err
+	}
 	return db, nil
+}
+
+func migrateUploadURLs(db *sql.DB) error {
+	statements := []string{
+		`UPDATE site_config SET value='/api/uploads/' || substr(value, 10) WHERE value LIKE '/uploads/%'`,
+		`UPDATE articles SET cover='/api/uploads/' || substr(cover, 10) WHERE cover LIKE '/uploads/%'`,
+		`UPDATE friend_links SET logo='/api/uploads/' || substr(logo, 10) WHERE logo LIKE '/uploads/%'`,
+	}
+	for _, statement := range statements {
+		if _, err := db.Exec(statement); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 const schema = `

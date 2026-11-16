@@ -55,6 +55,7 @@ func main() {
 	mux.HandleFunc("GET /api/projects", h.ListProjects)
 	mux.HandleFunc("GET /api/links", h.ListFriendLinks)
 	mux.HandleFunc("GET /api/sponsors", h.ListSponsors)
+	mux.HandleFunc("GET /api/uploads/{name}", h.ServeUpload)
 	mux.HandleFunc("GET /api/categories", h.ListCategories)
 	mux.HandleFunc("GET /api/config", h.GetConfig)
 
