@@ -88,7 +88,7 @@ func main() {
 	mux.Handle("/api/admin/", middleware.Auth(admin))
 
 	// 静态文件
-	mux.Handle("/admin/", http.StripPrefix("/admin/", http.FileServer(http.Dir("web/admin"))))
+	mux.Handle("/admin/", noCache(http.StripPrefix("/admin/", http.FileServer(http.Dir("web/admin")))))
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static"))))
 	mux.Handle("/uploads/", http.StripPrefix("/uploads/", http.FileServer(http.Dir("uploads"))))
 
@@ -127,6 +127,14 @@ func cors(next http.Handler) http.Handler {
 				return
 			}
 		}
+		next.ServeHTTP(w, r)
+	})
+}
+func noCache(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		w.Header().Set("Pragma", "no-cache")
+		w.Header().Set("Expires", "0")
 		next.ServeHTTP(w, r)
 	})
 }
