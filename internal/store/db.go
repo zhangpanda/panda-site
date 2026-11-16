@@ -57,6 +57,33 @@ CREATE TABLE IF NOT EXISTS projects (
 	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS friend_links (
+	id          INTEGER PRIMARY KEY AUTOINCREMENT,
+	name        TEXT NOT NULL,
+	url         TEXT NOT NULL,
+	logo        TEXT NOT NULL DEFAULT '',
+	description TEXT NOT NULL DEFAULT '',
+	group_name  TEXT NOT NULL DEFAULT '',
+	sort_order  INTEGER NOT NULL DEFAULT 0,
+	visible     INTEGER NOT NULL DEFAULT 1,
+	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_friend_links_visible_sort ON friend_links(visible,sort_order,id);
+
+CREATE TABLE IF NOT EXISTS sponsors (
+	id           INTEGER PRIMARY KEY AUTOINCREMENT,
+	name         TEXT NOT NULL DEFAULT '',
+	amount       TEXT NOT NULL,
+	currency     TEXT NOT NULL DEFAULT 'CNY',
+	message      TEXT NOT NULL DEFAULT '',
+	url          TEXT NOT NULL DEFAULT '',
+	anonymous    INTEGER NOT NULL DEFAULT 0,
+	visible      INTEGER NOT NULL DEFAULT 1,
+	sponsored_at TEXT NOT NULL,
+	created_at   DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_sponsors_visible_date ON sponsors(visible,sponsored_at,id);
+
 CREATE TABLE IF NOT EXISTS site_config (
 	key   TEXT PRIMARY KEY,
 	value TEXT NOT NULL DEFAULT ''
@@ -72,19 +99,22 @@ CREATE TABLE IF NOT EXISTS admin (
 func seed(db *sql.DB) {
 	var c int
 	db.QueryRow("SELECT COUNT(*) FROM categories").Scan(&c)
-	if c > 0 {
-		return
+	freshDatabase := c == 0
+	if freshDatabase {
+		db.Exec(`INSERT INTO categories (name, slug) VALUES ('炼丹笔记','tech'),('洞府日常','life'),('悟道心得','essay')`)
 	}
-	db.Exec(`INSERT INTO categories (name, slug) VALUES ('炼丹笔记','tech'),('洞府日常','life'),('悟道心得','essay')`)
 
 	defaults := map[string]string{
-		"title":       "ZhangPanda",
-		"subtitle":    "AI修道院 · 科技修仙者",
-		"tagline":     "以最少的灵材，炼最完整的法宝",
-		"description": "道号熊猫道君，渡劫期修士，主修《AI 驭算诀》",
-		"author":      "熊猫道君",
-		"github":      "https://github.com/zhangpanda",
-		"email":       "hi@zhangpanda.com",
+		"title":             "ZhangPanda",
+		"subtitle":          "AI修道院 · 科技修仙者",
+		"tagline":           "以最少的灵材，炼最完整的法宝",
+		"description":       "道号熊猫道君，渡劫期修士，主修《AI 驭算诀》",
+		"author":            "熊猫道君",
+		"github":            "https://github.com/zhangpanda",
+		"email":             "hi@zhangpanda.com",
+		"sponsor_markdown":  "如果本站内容对你有所帮助，欢迎请熊猫道君喝杯灵茶。每一份支持都会用于站点维护和持续创作。",
+		"sponsor_wechat_qr": "",
+		"sponsor_alipay_qr": "",
 		"about_markdown": `## ⚔️ 修仙简历
 
 **道号：** 熊猫道君
@@ -143,6 +173,10 @@ func seed(db *sql.DB) {
 	}
 	for k, v := range defaults {
 		db.Exec(`INSERT OR IGNORE INTO site_config (key,value) VALUES (?,?)`, k, v)
+	}
+
+	if !freshDatabase {
+		return
 	}
 
 	projects := []struct {

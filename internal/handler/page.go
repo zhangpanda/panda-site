@@ -10,12 +10,22 @@ import (
 )
 
 var funcMap = template.FuncMap{
-	"html":    func(s string) template.HTML { return template.HTML(s) },
-	"fmtDate": func(t *time.Time) string { if t == nil { return "" }; return t.Format("2006-01-02") },
+	"html": func(s string) template.HTML { return template.HTML(s) },
+	"fmtDate": func(t *time.Time) string {
+		if t == nil {
+			return ""
+		}
+		return t.Format("2006-01-02")
+	},
 	"fmtTime": func(t time.Time) string { return t.Format("2006-01-02") },
-	"split":   func(s, sep string) []string { if s == "" { return nil }; return strings.Split(s, sep) },
-	"add":     func(a, b int) int { return a + b },
-	"sub":     func(a, b int) int { return a - b },
+	"split": func(s, sep string) []string {
+		if s == "" {
+			return nil
+		}
+		return strings.Split(s, sep)
+	},
+	"add": func(a, b int) int { return a + b },
+	"sub": func(a, b int) int { return a - b },
 	"dict": func(pairs ...any) map[string]any {
 		m := map[string]any{}
 		for i := 0; i+1 < len(pairs); i += 2 {
@@ -35,7 +45,9 @@ func (h *Handler) PageIndex(w http.ResponseWriter, r *http.Request) {
 	// 只显示 visible 的项目
 	visible := make([]any, 0)
 	for _, p := range projects {
-		if p.Visible { visible = append(visible, p) }
+		if p.Visible {
+			visible = append(visible, p)
+		}
 	}
 	h.render(w, "index", map[string]any{
 		"Config":   h.Config.GetAll(),
@@ -50,9 +62,13 @@ func (h *Handler) PageProjects(w http.ResponseWriter, r *http.Request) {
 	groups := make([]map[string]any, 0)
 	groupMap := map[string]int{}
 	for _, p := range projects {
-		if !p.Visible { continue }
+		if !p.Visible {
+			continue
+		}
 		g := p.GroupName
-		if g == "" { g = "其他" }
+		if g == "" {
+			g = "其他"
+		}
 		if idx, ok := groupMap[g]; ok {
 			groups[idx]["items"] = append(groups[idx]["items"].([]any), p)
 		} else {
@@ -66,9 +82,47 @@ func (h *Handler) PageProjects(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+func (h *Handler) PageLinks(w http.ResponseWriter, r *http.Request) {
+	links, _ := h.FriendLink.List(true)
+	groups := make([]map[string]any, 0)
+	groupMap := map[string]int{}
+	for _, link := range links {
+		group := link.GroupName
+		if group == "" {
+			group = "道友"
+		}
+		if idx, ok := groupMap[group]; ok {
+			groups[idx]["items"] = append(groups[idx]["items"].([]any), link)
+		} else {
+			groupMap[group] = len(groups)
+			groups = append(groups, map[string]any{"name": group, "items": []any{link}})
+		}
+	}
+	h.render(w, "links", map[string]any{
+		"Config": h.Config.GetAll(),
+		"Groups": groups,
+	})
+}
+
+func (h *Handler) PageSponsor(w http.ResponseWriter, r *http.Request) {
+	cfg := h.Config.GetAll()
+	sponsors, _ := h.Sponsor.List(true)
+	sponsorHTML := ""
+	if markdown := cfg["sponsor_markdown"]; markdown != "" {
+		sponsorHTML = renderMarkdown(markdown)
+	}
+	h.render(w, "sponsor", map[string]any{
+		"Config":      cfg,
+		"Sponsors":    sponsors,
+		"SponsorHTML": sponsorHTML,
+	})
+}
+
 func (h *Handler) PageBlog(w http.ResponseWriter, r *http.Request) {
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
-	if page < 1 { page = 1 }
+	if page < 1 {
+		page = 1
+	}
 	cat := r.URL.Query().Get("category")
 	articles, total := h.Article.List(page, 10, "published", cat)
 	categories := h.Category.List()
@@ -126,7 +180,9 @@ func (h *Handler) RSS(w http.ResponseWriter, r *http.Request) {
 		template.HTMLEscapeString(cfg["url"]))
 	for _, a := range articles {
 		pub := ""
-		if a.PublishedAt != nil { pub = a.PublishedAt.Format(time.RFC1123Z) }
+		if a.PublishedAt != nil {
+			pub = a.PublishedAt.Format(time.RFC1123Z)
+		}
 		fmt.Fprintf(w, `<item><title>%s</title><link>%s/blog/%s</link><description>%s</description><pubDate>%s</pubDate></item>`,
 			template.HTMLEscapeString(a.Title),
 			template.HTMLEscapeString(cfg["url"]),

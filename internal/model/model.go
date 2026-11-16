@@ -40,3 +40,28 @@ type Category struct {
 	Slug  string `json:"slug"`
 	Count int    `json:"count"`
 }
+
+type FriendLink struct {
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	URL         string    `json:"url"`
+	Logo        string    `json:"logo"`
+	Description string    `json:"description"`
+	GroupName   string    `json:"group_name"`
+	SortOrder   int       `json:"sort_order"`
+	Visible     bool      `json:"visible"`
+	CreatedAt   time.Time `json:"created_at"`
+}
+
+type Sponsor struct {
+	ID          int64     `json:"id"`
+	Name        string    `json:"name"`
+	Amount      string    `json:"amount"`
+	Currency    string    `json:"currency"`
+	Message     string    `json:"message"`
+	URL         string    `json:"url"`
+	Anonymous   bool      `json:"anonymous"`
+	Visible     bool      `json:"visible"`
+	SponsoredAt string    `json:"sponsored_at"`
+	CreatedAt   time.Time `json:"created_at"`
+}

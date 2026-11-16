@@ -28,11 +28,13 @@ func main() {
 	defer db.Close()
 
 	h := &handler.Handler{
-		Article:  &store.ArticleStore{DB: db},
-		Project:  &store.ProjectStore{DB: db},
-		Category: &store.CategoryStore{DB: db},
-		Config:   &store.ConfigStore{DB: db},
-		DB:       db,
+		Article:    &store.ArticleStore{DB: db},
+		Project:    &store.ProjectStore{DB: db},
+		Category:   &store.CategoryStore{DB: db},
+		Config:     &store.ConfigStore{DB: db},
+		FriendLink: &store.FriendLinkStore{DB: db},
+		Sponsor:    &store.SponsorStore{DB: db},
+		DB:         db,
 	}
 
 	mux := http.NewServeMux()
@@ -40,6 +42,8 @@ func main() {
 	// 页面（服务端渲染）
 	mux.HandleFunc("GET /{$}", h.PageIndex)
 	mux.HandleFunc("GET /projects", h.PageProjects)
+	mux.HandleFunc("GET /links", h.PageLinks)
+	mux.HandleFunc("GET /sponsor", h.PageSponsor)
 	mux.HandleFunc("GET /blog", h.PageBlog)
 	mux.HandleFunc("GET /blog/{slug}", h.PageArticle)
 	mux.HandleFunc("GET /about", h.PageAbout)
@@ -49,6 +53,8 @@ func main() {
 	mux.HandleFunc("GET /api/articles", h.ListArticles)
 	mux.HandleFunc("GET /api/articles/{slug}", h.GetArticle)
 	mux.HandleFunc("GET /api/projects", h.ListProjects)
+	mux.HandleFunc("GET /api/links", h.ListFriendLinks)
+	mux.HandleFunc("GET /api/sponsors", h.ListSponsors)
 	mux.HandleFunc("GET /api/categories", h.ListCategories)
 	mux.HandleFunc("GET /api/config", h.GetConfig)
 
@@ -66,6 +72,14 @@ func main() {
 	admin.HandleFunc("POST /api/admin/projects", h.CreateProject)
 	admin.HandleFunc("PUT /api/admin/projects/{id}", h.UpdateProject)
 	admin.HandleFunc("DELETE /api/admin/projects/{id}", h.DeleteProject)
+	admin.HandleFunc("GET /api/admin/links", h.AdminListFriendLinks)
+	admin.HandleFunc("POST /api/admin/links", h.CreateFriendLink)
+	admin.HandleFunc("PUT /api/admin/links/{id}", h.UpdateFriendLink)
+	admin.HandleFunc("DELETE /api/admin/links/{id}", h.DeleteFriendLink)
+	admin.HandleFunc("GET /api/admin/sponsors", h.AdminListSponsors)
+	admin.HandleFunc("POST /api/admin/sponsors", h.CreateSponsor)
+	admin.HandleFunc("PUT /api/admin/sponsors/{id}", h.UpdateSponsor)
+	admin.HandleFunc("DELETE /api/admin/sponsors/{id}", h.DeleteSponsor)
 	admin.HandleFunc("POST /api/admin/categories", h.CreateCategory)
 	admin.HandleFunc("PUT /api/admin/categories/{id}", h.UpdateCategory)
 	admin.HandleFunc("DELETE /api/admin/categories/{id}", h.DeleteCategory)

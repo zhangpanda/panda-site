@@ -25,11 +25,13 @@ body{background:#0a0e1a;font-family:'LXGW WenKai',serif}
   <button onclick="doLogin()" class="w-full bg-primary/20 text-primary border border-primary/30 rounded-lg py-2 text-sm hover:bg-primary/30 transition-colors">入阵</button>
 </div>
 <div id="app" style="display:none">
-  <div class="bg-card border-b border-border"><div class="max-w-4xl mx-auto px-4 flex items-center justify-between h-12">
-    <span class="font-bold text-sm text-white">🧿 AI修道院</span>
-    <div class="flex">
+  <div class="bg-card border-b border-border"><div class="max-w-5xl mx-auto px-4 flex items-center justify-between h-12 gap-4">
+    <span class="font-bold text-sm text-white shrink-0">🧿 AI修道院</span>
+    <div class="flex overflow-x-auto whitespace-nowrap">
       <div class="tab active" data-sec="articles" onclick="showSec('articles')">文章</div>
       <div class="tab" data-sec="projects" onclick="showSec('projects')">项目</div>
+      <div class="tab" data-sec="links" onclick="showSec('links')">友链</div>
+      <div class="tab" data-sec="sponsors" onclick="showSec('sponsors')">赞助</div>
       <div class="tab" data-sec="categories" onclick="showSec('categories')">分类</div>
       <div class="tab" data-sec="config" onclick="showSec('config')">设置</div>
       <a href="/" target="_blank" class="tab">查看站点</a>

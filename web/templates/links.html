@@ -1,0 +1,28 @@
+{{define "title"}}友情链接 - {{index .Config "title"}}{{end}}
+{{define "desc"}}{{index .Config "title"}} 的友情链接{{end}}
+{{define "content"}}
+<h1 class="text-2xl font-bold mb-2 text-white font-kai glow-text">🤝 仙友录</h1>
+<p class="text-sm text-gray-500 mb-6">四海同道，互通有无。</p>
+{{range .Groups}}
+<section class="mb-8">
+  <h2 class="text-lg font-semibold text-gold/80 mb-3 font-kai">{{.name}}</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {{range .items}}
+    <a href="{{.URL}}" target="_blank" rel="noopener noreferrer" class="card p-5 flex items-start gap-4 no-underline group">
+      {{if .Logo}}
+      <img src="{{.Logo}}" alt="{{.Name}}" class="w-12 h-12 rounded-lg object-cover border border-border shrink-0">
+      {{else}}
+      <span class="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-xl shrink-0">☯</span>
+      {{end}}
+      <span class="min-w-0">
+        <span class="font-semibold text-white group-hover:text-primary transition-colors block">{{.Name}}</span>
+        {{if .Description}}<span class="text-sm text-gray-400 mt-1 line-clamp-2 block">{{.Description}}</span>{{end}}
+        <span class="text-xs text-gray-600 mt-2 truncate block">{{.URL}}</span>
+      </span>
+    </a>
+    {{end}}
+  </div>
+</section>
+{{end}}
+{{if not .Groups}}<p class="text-center text-gray-500 py-12">仙友录尚待有缘人</p>{{end}}
+{{end}}

@@ -63,14 +63,16 @@ pre code span{background:none!important}
 <canvas id="spirit-bg" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
 <header class="sticky top-0 z-10">
   <div class="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
-    <a href="/" class="text-lg font-bold text-white hover:text-primary transition-colors no-underline glow-text flex items-center gap-2">
+    <a href="/" class="text-lg font-bold text-white hover:text-primary transition-colors no-underline glow-text flex items-center gap-2 shrink-0">
       <span class="spin-slow inline-block" style="font-size:20px">☯</span>
       {{index .Config "title"}}
     </a>
-    <nav class="flex gap-5" id="main-nav">
+    <nav class="flex gap-3 sm:gap-5 overflow-x-auto whitespace-nowrap ml-4 min-w-0" id="main-nav">
       <a href="/" class="nav-link">山门</a>
       <a href="/projects" class="nav-link">法宝阁</a>
       <a href="/blog" class="nav-link">洞府札记</a>
+      <a href="/links" class="nav-link">仙友录</a>
+      <a href="/sponsor" class="nav-link">添香</a>
       <a href="/about" class="nav-link">道友信息</a>
     </nav>
   </div>

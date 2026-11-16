@@ -2,7 +2,7 @@
 
 Go + SQLite 驱动的个人站点系统，单二进制部署，零框架依赖。
 
-项目展示 · 技术博客 · 个人介绍 · 管理后台，开箱即用。
+项目展示 · 技术博客 · 友情链接 · 赞助鸣谢 · 个人介绍 · 管理后台，开箱即用。
 
 ## 功能
 
@@ -11,8 +11,10 @@ Go + SQLite 驱动的个人站点系统，单二进制部署，零框架依赖�
 | 🏠 首页 | 个人介绍 + 项目卡片 + 最新文章 |
 | 💼 项目展示 | 按分组展示，支持图标/标签/链接/排序/可见性 |
 | 📝 博客 | Markdown 文章，分类/标签/分页/上下篇导航 |
+| 🤝 友情链接 | 分组展示，支持 Logo、简介、排序和可见性 |
+| 🍵 赞助支持 | 微信/支付宝收款码、Markdown 说明和赞助鸣谢 |
 | 👤 关于 | Markdown 可配置的个人介绍页 |
-| ⚙️ 管理后台 | 文章编辑（Markdown + 实时预览）/ 项目管理 / 分类管理 / 站点设置 |
+| ⚙️ 管理后台 | 文章、项目、友链、赞助、分类和站点设置管理 |
 | 📡 RSS | 自动生成 RSS 订阅源 |
 | 🔍 SEO | 服务端渲染，搜索引擎友好 |
 
@@ -57,11 +59,13 @@ docker run -d -p 8080:8080 -v site-data:/app/data panda-site
 panda-site/
 ├── cmd/server/main.go              # 入口 + 路由
 ├── internal/
-│   ├── model/model.go              # Article, Project, Category
+│   ├── model/model.go              # Article, Project, FriendLink, Sponsor, Category
 │   ├── store/
 │   │   ├── db.go                   # Schema + 种子数据
 │   │   ├── article.go              # 文章 CRUD + 上下篇
 │   │   ├── project.go              # 项目 CRUD
+│   │   ├── friend_link.go          # 友情链接 CRUD
+│   │   ├── sponsor.go              # 赞助记录 CRUD
 │   │   ├── category.go             # 分类 CRUD
 │   │   └── config.go               # 站点配置 KV
 │   ├── handler/
@@ -73,6 +77,8 @@ panda-site/
     │   ├── layout.html
     │   ├── index.html              # 首页
     │   ├── projects.html           # 项目展示
+    │   ├── links.html              # 友情链接
+    │   ├── sponsor.html            # 赞助支持
     │   ├── blog.html               # 博客列表
     │   ├── article.html            # 文章详情
     │   └── about.html              # 关于
